@@ -25,7 +25,8 @@ for lt , ln , el in zip(lat, lon, elev):
     fg.add_child(folium.Marker(location=[lt,ln], popup =str(el) + 'meters', icon=folium.Icon(color=color(el))))
 
 
-fg.add_child(folium.GeoJson(open("world.json",encoding = "utf-8-sig").read()))
+fg.add_child(folium.GeoJson(open("world.json",encoding = "utf-8-sig").read(), 
+style_function=lambda x: {'fillColor':'red' if x['properties']['POP2005']< 10000000 else 'black' if 10000000<= x['properties']['POP2005']<20000000 else 'green'}))
 
 map.add_child(fg)
 
