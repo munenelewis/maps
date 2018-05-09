@@ -15,7 +15,7 @@ def color(elevation):
     else:
         return 'red'
 
-map = folium.Map(location=[38.58,-99.09], zoom_start=8, tiles='Mapbox Bright')
+map = folium.Map(location=[38.58,-99.09], zoom_start=3, tiles='Mapbox Bright')
 
 fg = folium.FeatureGroup(name="My Map")
 
@@ -23,6 +23,9 @@ fg = folium.FeatureGroup(name="My Map")
 
 for lt , ln , el in zip(lat, lon, elev):
     fg.add_child(folium.Marker(location=[lt,ln], popup =str(el) + 'meters', icon=folium.Icon(color=color(el))))
+
+
+fg.add_child(folium.GeoJson(open("world.json",encoding = "utf-8-sig").read()))
 
 map.add_child(fg)
 
